@@ -1,10 +1,14 @@
+const brandServices = require('../services/brandServices');
+const categoryServices = require('../services/categoryServices');
+
 class productController{
     constructor() {
 
     }
 
-    productList(req, res){
-        res.render('product-list');
+    async productList(req, res) {
+        let data = await Promise.all([brandServices.getAll(), categoryServices.getAll()]);        
+        res.render('product-list', {brands: data[0], categories: data[1]});       
     }
 
     productDetail(req, res){

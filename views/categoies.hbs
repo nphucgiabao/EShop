@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Create date</th>
+                            <th>Update date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        {{#each data}}
+                        <tr>
+                            <td>{{imagePath}}</td>
+                            <td>{{name}}</td>
+                            <td>{{createdat}}</td>
+                            <td>{{updatedat}}</td>
+                            <td>
+                                <a class="button button-primary" href="/categories/addedit?id={{id}}"><i class="fa fa-edit"></i></button>                                
+                                <a class="button button-danger" href="/categories/delete?id={{id}}"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

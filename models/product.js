@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     specification: DataTypes.STRING,
     stars: DataTypes.DECIMAL,
-    quantity: DataTypes.INTERGER
+    quantity: DataTypes.DECIMAL
   }, {
     sequelize,
     modelName: 'Product',

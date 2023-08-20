@@ -1,10 +1,13 @@
+const brandServices = require('../services/brandServices');
+
 class homeController {
     constructor(){
 
     }
 
-    index(req, res){
-        res.render('index');
+    async index(req, res) {
+        let brands = await brandServices.getAll();
+        res.render('index', {brands});
     }
 }
 
