@@ -1,5 +1,6 @@
 const brandServices = require('../services/brandServices');
 const categoryServices = require('../services/categoryServices');
+const productServices = require('../services/productServices');
 
 class productController{
     constructor() {
@@ -7,13 +8,13 @@ class productController{
     }
 
     async productList(req, res) {
-        let data = await Promise.all([brandServices.getAll(), categoryServices.getAll()]);        
-        res.render('product-list', {brands: data[0], categories: data[1]});       
+        let data = await Promise.all([productServices.getAll(), brandServices.getAll(), categoryServices.getAll()]);        
+        res.render('product-list', {brands: data[1], categories: data[2]});       
     }
 
-    productDetail(req, res){
-        console.log(req.params);
-        res.render('product-detail');
+    async productDetail(req, res) {
+        let obj = await productServices.getById(req.query.id);
+        res.render('product-detail', obj);
     }
 }
 

@@ -11,8 +11,13 @@ class categoryController{
         res.render('categoies', {data});
     }
 
-    addEdit(req, res) {
-        res.render('addedit-categories');
+    async addEdit(req, res) {
+        let obj = {};
+        if(req.query.id) {
+            let brand = await categoryServices.getById(req.query.id);
+            obj = brand.pop();
+        }
+        res.render('addedit-categories', obj);
     }
 
     async insertUpdate(req, res) {

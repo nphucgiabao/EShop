@@ -21,7 +21,7 @@
                             <td>{{updatedat}}</td>
                             <td>
                                 <a class="button button-primary" href="/brand/addedit?id={{id}}"><i class="fa fa-edit"></i></button>                                
-                                <a class="button button-danger" href="/brand/delete?id={{id}}"><i class="fa fa-trash"></i></button>
+                                <a onclick="return confirm('Are you sure')" class="button button-danger" href="/brand/delete?id={{id}}"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                         {{/each}}

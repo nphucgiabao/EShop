@@ -1,19 +1,19 @@
 const models = require('../models');
 
-class categoryServices {
+class productServices {
 
     constructor() {
 
     }
 
     getAll() {
-        let sql = `SELECT id, name, "imagePath", 
-                          to_char("createdAt", 'DD/MM/YYYY') as createdAt, 
-                          to_char("updatedAt", 'DD/MM/YYYY') as updatedAt 
-                   FROM public."Categories"`;
         return new Promise((resolve, reject) => {
             models.sequelize.query(
-                sql,
+                `SELECT id, name, "imagePath",
+                to_char("createdAt", 'DD/MM/YYYY') as createdAt, 
+                to_char("updatedAt", 'DD/MM/YYYY') as updatedAt 
+                FROM public."Products"
+                ORDER BY id ASC`,
                 {type: models.sequelize.QueryTypes.SELECT}
             )
             .then((data) => { resolve(data) })
@@ -24,7 +24,7 @@ class categoryServices {
     getById(id) {
         return new Promise((resolve, reject) => {
             models.sequelize.query(
-                `SELECT * FROM public."Categories" WHERE id = ${id}`,
+                `SELECT * FROM public."Products" WHERE id = ${id}`,
                 {type: models.sequelize.QueryTypes.SELECT}
             )
             .then((data) => { resolve(data); })
@@ -32,10 +32,9 @@ class categoryServices {
         });
     }
 
-    insert (category) {
-        console.log(category);
+    insert(product) {
         return new Promise((resolve, reject) => {
-            models.Category.create(category)
+            models.Product.create(product)
             .then((data) => {
                 resolve({success: true, obj: data});
             }).catch((err) => {
@@ -44,20 +43,24 @@ class categoryServices {
         });
     }
 
-    update(category) {
+    update(product) {
         return new Promise((resolve, reject) => {
             models.sequelize.query(
-                `UPDATE public."Categories" 
-                 SET name = '${category.name}', 
-                     "imagePath" = '${category.imagePath}',
+                `UPDATE public."Products" 
+                 SET name = '${product.name}', 
+                     "imagePath" = '${product.imagePath}',
                      "updatedAt" = NOW()
-                 WHERE id = ${category.id}`,
+                 WHERE id = ${brand.id}`,
                 {type: models.sequelize.QueryTypes.update}
             )
             .then((data) => { resolve({ success: true, obj: data}) })
             .catch((err) => { reject({ success: false, error: err}) });
         });
     }
+
+    delete(id) {
+
+    }
 }
 
-module.exports = new categoryServices();
+module.exports = new productServices();
