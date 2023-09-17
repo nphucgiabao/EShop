@@ -1,0 +1,64 @@
+<form method="post" action="/product/addedit">
+    <input type="hidden" name="id" value="{{id}}">
+    <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12 m-4">
+    <div class="register-form">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <label>Name</label>
+                <input name="name" class="form-control" type="text" placeholder="Name" value="{{name}}">
+            </div>
+            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <label>Image</label>
+                <input name="imagePath" class="form-control" type="text" value="{{imagePath}}">
+            </div>
+            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <label>Old price</label>
+                <input name="oldPrice" class="form-control" type="text" value="{{oldPrice}}">
+            </div>
+            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <label>Price</label>
+                <input name="price" class="form-control" type="text" value="{{price}}">
+            </div>
+            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <label>Summary</label>
+                <input name="summary" class="form-control" type="text" value="{{summary}}">
+            </div>
+            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <label>Description</label>
+                <input name="description" class="form-control" type="text" value="{{description}}">
+            </div>
+             <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <label>Specification</label>
+                <input name="specification" class="form-control" type="text" value="{{specification}}">
+            </div>
+            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <label>Stars</label>
+                <input name="stars" class="form-control" type="text" value="{{stars}}">
+            </div>
+            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <label>Quantity</label>
+                <input name="quantity" class="form-control" type="text" value="{{quantity}}">
+            </div>
+            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <label>Brand</label>
+                <select name="brandId" class="form-control">
+                    {{#each brands}}
+                        <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+             <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <label>Category</label>
+                 <select name="categoryId" class="form-control">
+                    {{#each categories}}
+                        <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+                <button class="btn">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
