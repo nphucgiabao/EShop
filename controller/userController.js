@@ -13,14 +13,21 @@ class userController{
     async postLogin(req, res) {
         let password = crypto.createHash('md5').update(req.body.password).digest("hex");
         let user = await userServices.login(req.body.email, password);
-        res.redirect('/home/index')
+        res.redirect('/home/index');
     }
 
     regist(req, res) {
         res.render('regist');
     }
 
-    postRegist(req, res) {
+    async postRegist(req, res) {
+        let user = req.body;
+        user.password = crypto.createHash('md5').update(user.password).digest("hex");
+        let result = await userServices.insert(user);
+        if (result.success)
+            res.redirect('/user/login');
+        else
+            res.redirect('/user/regist');
     }
 
     account(req, res) {

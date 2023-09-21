@@ -46,7 +46,7 @@
                                             <img src="/img/{{imagePath}}" alt="Product Image">
                                         </a>
                                         <div class="product-action">
-                                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                            <a href="#" onclick="insertCart({{id}})"><i class="fa fa-cart-plus"></i></a>
                                             <a href="#"><i class="fa fa-heart"></i></a>
                                             <a href="#"><i class="fa fa-search"></i></a>
                                         </div>
@@ -95,3 +95,20 @@
             </div>
         </div>
         <!-- Product List End -->
+<script type="text/javascript">
+    function insertCart(id) {
+        $.ajax({
+            url: '/cart/add',
+            type: 'POST',
+            data: {id, quantity: 1},
+            //contentType: 'application/json',
+            dataType: 'json',
+            success: function(response) {
+                $('#quantity').html(`(${response.quantity})`);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    }
+</script>
