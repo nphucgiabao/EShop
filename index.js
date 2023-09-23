@@ -28,14 +28,19 @@ app.engine('hbs', hbs.create({
     defaultLayout: 'layout',
     layoutsDir: `${__dirname}/views/layouts`,
     partialsDir: [`${__dirname}/views/partials`],
-    //tạo thẻ times ở view
     helpers: {
+        //tạo thẻ times ở view
         times: function(num, block){
             let accum = '';
             for(let i = 0; i < num; ++i)
                 accum += block.fn(i);
             return accum;
-        }
+        },
+        section: function(name, options) { 
+            if(!this._sections) this._sections = {};
+            this._sections[name] = options.fn(this); 
+            return null;
+        } 
     },
     runtimeOptions: {
         allowProtoPropertiesByDefault: true

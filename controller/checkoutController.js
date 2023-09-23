@@ -3,8 +3,8 @@ class checkoutController{
 
     }
 
-    index(req, res){
-        res.render('checkout');
+    index(req, res) {
+        res.render('checkout', req.session.cart.getCart());
     }
 }
 

@@ -33,7 +33,6 @@ class cartServices {
 
     add(product, quantity) {
         let id = product.id;
-        console.log(quantity);
         let storedItem = this.items[id];
         if (!storedItem) {
             this.items[id] = { product, quantity: 0, total: 0 };
@@ -48,7 +47,9 @@ class cartServices {
         let storedItem = this.items[id];
         if (storedItem) {
             delete this.items[id];
+            return true;
         }
+        return false;
     }
 
     update(id, quantity) {

@@ -13,8 +13,12 @@ class cartController{
         let product = await productServices.getById(req.body.id);
         if (product)
             req.session.cart.add(product.pop(), req.body.quantity);
-        console.log(req.session.cart.getCart());
         return res.json({ quantity: req.session.cart.quantity });
+    }
+
+    deleteProduct(req, res) {
+        let result = req.session.cart.remove(req.body.id);
+        return res.json({ success: result, quantity: req.session.cart.quantity });
     }
 }
 
