@@ -12,6 +12,7 @@
 
 
 <!-- Checkout Start -->
+<form action="/checkout/order" method="post">
 <div class="checkout">
     <div class="container">
         <div class="row">
@@ -21,23 +22,23 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="First Name">
+                            <input name="firstName" class="form-control" type="text" placeholder="First Name">
                         </div>
                         <div class="col-md-6">
-                            <label>Last Name"</label>
-                            <input class="form-control" type="text" placeholder="Last Name">
+                            <label>Last Name</label>
+                            <input name="lastName" class="form-control" type="text" placeholder="Last Name">
                         </div>
                         <div class="col-md-6">
                             <label>E-mail</label>
-                            <input class="form-control" type="text" placeholder="E-mail">
+                            <input name="email" class="form-control" type="text" placeholder="E-mail">
                         </div>
                         <div class="col-md-6">
                             <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="Mobile No">
+                            <input name="mobile" class="form-control" type="text" placeholder="Mobile No">
                         </div>
                         <div class="col-md-12">
                             <label>Address</label>
-                            <input class="form-control" type="text" placeholder="Address">
+                            <input name="address" class="form-control" type="text" placeholder="Address">
                         </div>
                         <div class="col-md-6">
                             <label>Country</label>
@@ -132,7 +133,7 @@
                         {{/each}}
                         <p class="sub-total">Sub Total<span>${{subtotal}}</span></p>
                         <p class="ship-cost">Shipping Cost<span>${{shipping}}</span></p>
-                        <h4>Grand Total<span>$23</span></h4>
+                        <h4>Grand Total<span>${{total}}</span></h4>
                     </div>
                 </div>
 
@@ -201,11 +202,12 @@
                         </div>
                     </div>
                     <div class="checkout-btn">
-                        <button>Place Order</button>
+                        <button type="submit">Place Order</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</form>
 <!-- Checkout End -->

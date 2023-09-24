@@ -1,13 +1,13 @@
 const models = require('../models');
 
-class orderServices {
+class orderDetailServices {
     constructor() {
 
     }
 
-    insert(order) {
+    insertList(orderDetails) {
         return new Promise((resolve, reject) => {
-            models.Order.create(order).then((data) => {
+            models.OrderDetails.bulkCreate(orderDetails).then((data) => {
                 resolve({success: true, obj: data});
             }).catch((err) => {
                 console.log(err);
@@ -17,4 +17,4 @@ class orderServices {
     }
 }
 
-module.exports = new orderServices();
+module.exports = new orderDetailServices();

@@ -7,7 +7,6 @@ class userServices {
     }
 
     insert(user) {
-        console.log(user);
         return new Promise((resolve, reject) => {
             models.User.create(user).then((data) => {
                 resolve({success: true, obj: data});
