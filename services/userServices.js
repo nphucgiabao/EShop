@@ -47,6 +47,16 @@ class userServices {
         });
     }
 
+    async findById(id) {
+        return await models.User.findOne({
+            attributes: ['id', 'email', 'firstName', 'lastName', 'mobile', 'isAdmin'],
+            where: { id }
+        });
+    }
+
+    async findByEmail(email) {
+        return await models.User.findOne({where: {email}});
+    }
 }
 
 module.exports = new userServices();

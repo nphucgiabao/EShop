@@ -6,18 +6,18 @@ class userController{
 
     }
 
-    login(req, res) {
-        res.render('login');
+    loginAndRegist(req, res) {
+        res.render('login-regist');
+    }
+
+    index(req, res) {
+        res.render('my-account');
     }
 
     async postLogin(req, res) {
         let password = crypto.createHash('md5').update(req.body.password).digest("hex");
         let user = await userServices.login(req.body.email, password);
         res.redirect('/home/index');
-    }
-
-    regist(req, res) {
-        res.render('regist');
     }
 
     async postRegist(req, res) {

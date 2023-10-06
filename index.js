@@ -4,6 +4,11 @@ const hbs = require('express-handlebars');
 const session = require('express-session');
 const app = express();
 const cartMiddleware = require('./middleware/cartMiddleware');
+const {Server} = require('socket.io');
+const http = require('http');
+const server = http.createServer(app);
+const io = new Server(server);
+const passport = require('./middleware/authMiddleware');
 
 //cấu hình session
 app.use(session({
@@ -15,6 +20,14 @@ app.use(session({
         maxAge: 20*60*100 //thời gian tồn tại của session 20 phút
     }
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+    res.locals.isLoggedIn = req.isAuthenticated();
+    next();
+})
 
 //sử dụng cartMiddleware
 app.use(cartMiddleware);
@@ -55,6 +68,13 @@ app.use('/js', express.static(`${__dirname}/public/js`));
 app.use('/lib', express.static(`${__dirname}/public/lib`));
 app.set('view engine', 'hbs');
 
-app.listen(8080, () => {
+io.on('connection', (socket) => {
+    console.log('user connected');
+    socket.on('review', (review) => {
+        io.emit('review', review);
+    });
+});
+
+server.listen(8080, () => {
     console.log('Server listening on port 8080!!!');
 });
