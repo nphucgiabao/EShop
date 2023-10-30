@@ -1,4 +1,5 @@
 'use strict';
+const moment = require('moment');
 const {
   Model
 } = require('sequelize');
@@ -13,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Order.belongsTo(models.User, {foreignKey: 'userId'});
       Order.belongsToMany(models.Product, {through: models.OrderDetails, foreignKey: 'orderId', otherKey: 'productId'});
+    }
+
+    getCreatedDate() {
+      return moment(this.createdAt).format('DD/MM/YYYY');
     }
   }
   Order.init({

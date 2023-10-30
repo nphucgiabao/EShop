@@ -22,13 +22,31 @@ class productServices {
     }
 
     getById(id) {
-        return new Promise((resolve, reject) => {
-            models.sequelize.query(
-                `SELECT * FROM public."Products" WHERE id = ${id}`,
-                {type: models.sequelize.QueryTypes.SELECT}
-            )
-            .then((data) => { resolve(data); })
-            .catch((err) => { reject(err) });
+        return models.Product.findOne({
+            attributes: ['id', 'name', 'imagePath', 'oldPrice', 'price', 'summary', 'description', 'specification', 'stars', 'quantity'],
+            where: { id } 
+        });
+        // return new Promise((resolve, reject) => {
+        //     models.sequelize.query(
+        //         `SELECT * FROM public."Products" WHERE id = ${id}`,
+        //         {type: models.sequelize.QueryTypes.SELECT}
+        //     )
+        //     .then((data) => { resolve(data); })
+        //     .catch((err) => { reject(err) });
+        // });
+    }
+
+    getByCategoryId(categoryId) {
+        return models.Product.findAll({
+            attributes: ['id', 'name', 'imagePath', 'oldPrice', 'price', 'summary', 'description', 'specification', 'stars', 'quantity'],
+            where: { categoryId } 
+        });
+    }
+
+    getByBrandId(brandId) {
+        return models.Product.findAll({
+            attributes: ['id', 'name', 'imagePath', 'oldPrice', 'price', 'summary', 'description', 'specification', 'stars', 'quantity'],
+            where: { brandId } 
         });
     }
 
@@ -67,6 +85,10 @@ class productServices {
             .then((data) => { resolve({ success: true, obj: data}) })
             .catch((err) => { console.log(err); reject({ success: false, error: err}) });
         });
+    }
+
+    updateQuantity(id, quantity) {
+        return models.Product.update({quantity}, {where:{id}});
     }
 
     delete(id) {

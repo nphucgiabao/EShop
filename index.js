@@ -8,7 +8,9 @@ const {Server} = require('socket.io');
 const http = require('http');
 const server = http.createServer(app);
 const io = new Server(server);
-const passport = require('./middleware/authMiddleware');
+const passport = require('./middleware/passportMiddleware');
+const cookieParser = require('cookie-parser');
+const csrf = require('csurf');
 
 //cấu hình session
 app.use(session({
@@ -31,6 +33,9 @@ app.use((req, res, next) => {
 
 //sử dụng cartMiddleware
 app.use(cartMiddleware);
+
+app.use(cookieParser());
+//app.use(csrf({ cookie: true }));
 
 //cấu hình route
 route(app);

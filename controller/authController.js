@@ -1,4 +1,4 @@
-const passport = require('../middleware/authMiddleware');
+const passport = require('../middleware/passportMiddleware');
 
 class authController {
     constructor() {
@@ -6,7 +6,7 @@ class authController {
     }
 
     index(req, res) {
-        res.render('login-regist');
+        res.render('login-regist', {csrfToken: req.csrfToken()});
     }
 
     login(req, res, next) {

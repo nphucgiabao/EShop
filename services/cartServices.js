@@ -57,7 +57,8 @@ class cartServices {
         if (storedItem && quantity >= 1) {
             storedItem.quantity = quantity;
             storedItem.total = parseFloat(storedItem.product.price * storedItem.quantity).toFixed(2);
-        }
+        } else if(storedItem && quantity == 0)
+            this.remove(id);
         return storedItem;
     }
 

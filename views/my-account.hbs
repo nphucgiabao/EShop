@@ -46,39 +46,25 @@
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Product</th>
+                                        <th>No</th>                                        
                                         <th>Date</th>
+                                        <th>Shipping Address</th>
                                         <th>Price</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#each orders}}
                                     <tr>
-                                        <td>1</td>
-                                        <td>Product Name</td>
-                                        <td>01 Jan 2020</td>
-                                        <td>$22</td>
-                                        <td>Approved</td>
-                                        <td><button>View</button></td>
+                                        <td>{{id}}</td>                                        
+                                        <td>{{createdAt}}</td>
+                                        <td>{{shippingAddress}}</td>
+                                        <td>${{total}}</td>
+                                        <td>{{status}}</td>
+                                        <td><button onclick="viewOrderDetails({{id}})">View</button></td>
                                     </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Product Name</td>
-                                        <td>01 Jan 2020</td>
-                                        <td>$22</td>
-                                        <td>Approved</td>
-                                        <td><button>View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Product Name</td>
-                                        <td>01 Jan 2020</td>
-                                        <td>$22</td>
-                                        <td>Approved</td>
-                                        <td><button>View</button></td>
-                                    </tr>
+                                    {{/each}}
                                 </tbody>
                             </table>
                         </div>
@@ -96,62 +82,73 @@
                     <div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
                         <h4>Address</h4>
                         <div class="row">
-                            <div class="col-md-6">
-                                <h5>Payment Address</h5>
-                                <p>123 Payment Street, Los Angeles, CA</p>
-                                <p>Mobile: 012-345-6789</p>
-                                <button>Edit Address</button>
-                            </div>
+                            {{#each addresses}}
                             <div class="col-md-6">
                                 <h5>Shipping Address</h5>
-                                <p>123 Shipping Street, Los Angeles, CA</p>
-                                <p>Mobile: 012-345-6789</p>
-                                <button>Edit Address</button>
+                                <p>{{address}}, {{city}}, {{state}}</p>
+                                <p>Mobile: {{mobile}}</p>
+                                <button onclick="editAddress({{id}})">Edit Address</button>
                             </div>
+                            {{/each}}                        
                         </div>
                     </div>
                     <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
                         <h4>Account Details</h4>
-                        <div class="row">
+                        <form method="post" action="/user/update-account" onsubmit="return updateAccount(this)">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                            <input type="hidden" name="id" value="{{account.id}}"/>
+                             <div class="row">
                             <div class="col-md-6">
-                                <input type="text" placeholder="First Name">
+                                <input type="text" name="firstName" placeholder="First Name" value="{{account.firstName}}" /> 
                             </div>
                             <div class="col-md-6">
-                                <input type="text" placeholder="Last Name">
+                                <input type="text" name="lastName" placeholder="Last Name" value="{{account.lastName}}" />
                             </div>
                             <div class="col-md-6">
-                                <input type="text" placeholder="Mobile">
+                                <input type="text" name="mobile" placeholder="Mobile" value="{{account.mobile}}"/>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" placeholder="Email">
-                            </div>
+                                <input type="text" name="email" placeholder="Email" value="{{account.email}}">
+                            </div>                           
                             <div class="col-md-12">
-                                <input type="text" placeholder="Address">
-                            </div>
-                            <div class="col-md-12">
-                                <button>Update Account</button>
+                                <button type="submit">Update Account</button>
                                 <br><br>
                             </div>
                         </div>
+                        </form>
+                       
                         <h4>Password change</h4>
-                        <div class="row">
+                        <form method="post" action="/user/update-password" onsubmit="return updatePassword(this)">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                            <input type="hidden" name="id" value="{{account.id}}"/>
+                            <div class="row">
                             <div class="col-md-12">
-                                <input type="password" placeholder="Current Password">
+                                <input type="password" placeholder="Current Password" name="currentPassword">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" placeholder="New Password">
+                                <input type="password" placeholder="New Password" name="newPassword">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" placeholder="Confirm Password">
+                                <input type="password" placeholder="Confirm Password" name="confirmPassword">
                             </div>
                             <div class="col-md-12">
                                 <button>Save Changes</button>
                             </div>
                         </div>
+                        </form>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div id="modal-placeholder">
+
+</div>
 <!-- My Account End -->
+{{#section 'scripts'}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/my-account.js"></script>
+{{/section}}

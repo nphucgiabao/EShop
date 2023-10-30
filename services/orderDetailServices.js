@@ -15,6 +15,15 @@ class orderDetailServices {
             });
         });
     }
+
+    getByOrderId(orderId) {
+        return models.OrderDetails.findAll({
+            include: [{
+                model: models.Product
+            }],
+            where: {orderId}
+        });
+    }
 }
 
 module.exports = new orderDetailServices();

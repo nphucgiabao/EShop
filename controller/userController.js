@@ -1,39 +1,41 @@
-const crypto = require('crypto');
+const orderServices = require('../services/orderServices');
+const addressServices = require('../services/addressServices');
 const userServices = require('../services/userServices');
+const {appMessage} = require('../util/appHelper');
 
 class userController{
     constructor(){
 
     }
 
-    loginAndRegist(req, res) {
-        res.render('login-regist');
+    async index(req, res) {
+        let data = await Promise.all([orderServices.getByUserId(req.user.id), addressServices.getByUserId(req.user.id), userServices.findById(req.user.id)]);
+        res.locals.orders = data[0];
+        res.locals.addresses = data[1];
+        res.locals.account = data[2];
+        res.render('my-account', {csrfToken: req.csrfToken()});
     }
 
-    index(req, res) {
-        res.render('my-account');
+    async editAddress(req, res) {
+        res.locals.address = await addressServices.getById(parseInt(req.query.id))
+        res.locals.csrfToken = req.csrfToken();
+        res.render('editAddress', { layout: false });
     }
 
-    async postLogin(req, res) {
-        let password = crypto.createHash('md5').update(req.body.password).digest("hex");
-        let user = await userServices.login(req.body.email, password);
-        res.redirect('/home/index');
+    async updateAddress(req, res) {
+        let result = await addressServices.update(req.body);
+        if (result > 0)
+            return res.json({ success: true, message: appMessage.saveSuccess });
+        return res.json({ success: false, message: appMessage.saveError });
     }
 
-    async postRegist(req, res) {
-        let user = req.body;
-        user.password = crypto.createHash('md5').update(user.password).digest("hex");
-        let result = await userServices.insert(user);
-        if (result.success)
-            res.redirect('/user/login');
-        else
-            res.redirect('/user/regist');
+    updateAccount(req, res) {
+
     }
 
-    account(req, res) {
-        res.render('my-account');
+    updatePassword(req, res) {
+        
     }
-
 }
 
 module.exports = new userController();

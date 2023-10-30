@@ -8,13 +8,16 @@ class productController{
     }
 
     async productList(req, res) {
-        let data = await Promise.all([productServices.getAll(), brandServices.getAll(), categoryServices.getAll()]);        
-        res.render('product-list', {products: data[0], brands: data[1], categories: data[2]});       
+        let catid = 0
+        if (req.query.catid)
+            catid = parseInt(req.query.catid);
+        let data = await Promise.all([catid > 0 ? productServices.getByCategoryId(catid) : productServices.getAll(), brandServices.getAll(), categoryServices.getAll()]);
+        res.render('product-list', { products: data[0], brands: data[1], categories: data[2] });
     }
 
     async productDetail(req, res) {
         let product = await productServices.getById(req.params.id);
-        res.render('product-detail', {product: product.pop()});
+        res.render('product-detail', {product});
     }
 
     async viewAll(req, res){
@@ -25,8 +28,7 @@ class productController{
     async addEdit(req, res) {
         let obj = {};
         if(req.query.id) {
-            let product = await productServices.getById(req.query.id);
-            obj = product.pop();
+            obj = await productServices.getById(req.query.id);
         }
         let data = await Promise.all([brandServices.getAll(), categoryServices.getAll()]);        
         res.locals.brands = data[0];

@@ -25,6 +25,7 @@
             <div class="col-md-6">
                 <div class="login-form">
                     <form method="post" action="/user/login">
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
                         <div class="row">
                             <div class="col-md-6">
                                 <label>E-mail / Username</label>
@@ -32,7 +33,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label>Password</label>
-                                <input name="password" class="form-control" type="text" placeholder="Password">
+                                <input name="password" class="form-control" type="password" placeholder="Password">
                             </div>
                             <div class="col-md-12">
                                 <div class="custom-control custom-checkbox">
@@ -50,6 +51,7 @@
             <div class="col-md-6">
                 <div class="register-form">
                     <form method="post" action="/user/regist">
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
                         <div class="row">
                             <div class="col-md-6">
                                 <label>First Name</label>

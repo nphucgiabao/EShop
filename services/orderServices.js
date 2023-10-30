@@ -15,6 +15,13 @@ class orderServices {
             });
         });
     }
+
+    getByUserId(userId) {
+        return models.Order.findAll({
+            attributes: ['id', 'quantity', 'total', 'subtotal', 'shipping', 'discount', 'couponCode', 'shippingAddress', 'paymentMethod', 'paymentDetails', 'status', 'userId', 'createdAt', 'updatedAt'],
+            where: { userId } 
+        });
+    }
 }
 
 module.exports = new orderServices();

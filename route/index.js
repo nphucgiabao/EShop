@@ -6,7 +6,8 @@ const checkoutRoute = require('./checkoutRoute');
 const authRoute = require('./authRoute');
 const userRoute = require('./userRoute');
 const brandRoute = require('./brandRoute');
-const categoryRouter = require('./categoryRouter');
+const categoryRoute = require('./categoryRouter');
+const orderRoute = require('./orderRoute');
 
 function route(app) {
     app.use(express.json());
@@ -18,7 +19,8 @@ function route(app) {
     app.use('/user', authRoute);
     app.use('/user', userRoute);   
     app.use('/brand', brandRoute);
-    app.use('/categories', categoryRouter);
+    app.use('/categories', categoryRoute);
+    app.use('/order', orderRoute);
 }
 
 module.exports = route;
