@@ -19,8 +19,8 @@ class checkoutController{
     async checkout(req, res) {
         if(req.session.cart.getCart().items.length > 0) {
             let address = '';
-            if(req.body.addresses) {
-                let a = await addressServices.getById(parseInt(req.body.address));
+            if(!isNaN(req.body.addresses)) {
+                let a = await addressServices.getById(parseInt(req.body.addresses));
                 address = a.address;
             }else{
                 let addressInfo = {

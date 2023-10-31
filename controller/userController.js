@@ -1,7 +1,7 @@
 const orderServices = require('../services/orderServices');
 const addressServices = require('../services/addressServices');
 const userServices = require('../services/userServices');
-const {appMessage} = require('../util/appHelper');
+const { hashMD5, appMessage} = require('../util/appHelper');
 
 class userController{
     constructor(){
@@ -29,12 +29,18 @@ class userController{
         return res.json({ success: false, message: appMessage.saveError });
     }
 
-    updateAccount(req, res) {
-
+    async updateAccount(req, res) {
+        let result = await userServices.update(req.body);
+        if (result > 0)
+            return res.json({ success: true, message: appMessage.saveSuccess });
+        return res.json({ success: false, message: appMessage.saveError });
     }
 
-    updatePassword(req, res) {
-        
+    async updatePassword(req, res) {
+        let result = await userServices.updatePassword(req.body.id, hashMD5(req.body.newPassword));
+        if (result > 0)
+            return res.json({ success: true, message: appMessage.saveSuccess });
+        return res.json({ success: false, message: appMessage.saveError });
     }
 }
 

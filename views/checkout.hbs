@@ -12,7 +12,7 @@
 
 
 <!-- Checkout Start -->
-<form action="/checkout/order" method="post">
+<form action="/checkout/order" method="post" novalidate onsubmit="placeOrders(event)">
 <div class="checkout">
     <div class="container">
         <div class="row">
@@ -36,36 +36,33 @@
                         {{/each}}   
                                                    
                         <div class="col-md-12">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="shipto">
+                            <div class="payment-method">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="shipto" value="another" name="addresses">
                                 <label class="custom-control-label" for="shipto">Ship to different address</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shipping-address">
+                                </div>
+                                <div class="payment-content" id="shipto-show">
                     <h2>Shipping Address</h2>
                     <div class="row">
                         <div class="col-md-6">
                             <label>First Name</label>
-                            <input name="firstName" class="form-control" type="text" placeholder="First Name">
+                            <input name="firstName" class="form-control" type="text" placeholder="First Name" required>
                         </div>
                         <div class="col-md-6">
                             <label>Last Name</label>
-                            <input name="lastName" class="form-control" type="text" placeholder="Last Name">
+                            <input name="lastName" class="form-control" type="text" placeholder="Last Name" required>
                         </div>
                         <div class="col-md-6">
                             <label>E-mail</label>
-                            <input name="email" class="form-control" type="text" placeholder="E-mail">
+                            <input name="email" class="form-control" type="text" placeholder="E-mail" required>
                         </div>
                         <div class="col-md-6">
                             <label>Mobile No</label>
-                            <input name="mobile" class="form-control" type="text" placeholder="Mobile No">
+                            <input name="mobile" class="form-control" type="text" placeholder="Mobile No" required>
                         </div>
                         <div class="col-md-12">
                             <label>Address</label>
-                            <input name="address" class="form-control" type="text" placeholder="Address">
+                            <input name="address" class="form-control" type="text" placeholder="Address" required>
                         </div>
                         <div class="col-md-6">
                             <label>Country</label>
@@ -79,7 +76,7 @@
                         </div>
                         <div class="col-md-6">
                             <label>City</label>
-                            <input name="city" class="form-control" type="text" placeholder="City">
+                            <input name="city" class="form-control" type="text" placeholder="City" required>
                         </div>
                         <div class="col-md-6">
                             <label>State</label>
@@ -91,6 +88,12 @@
                         </div>                       
                     </div>
                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
             </div>
             <div class="col-md-5">
                 <div class="checkout-summary">
@@ -180,3 +183,7 @@
 </div>
 </form>
 <!-- Checkout End -->
+{{#section 'scripts'}}
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/checkout.js"></script>
+{{/section}}

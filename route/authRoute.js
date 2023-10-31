@@ -8,6 +8,7 @@ let csrfProtection = csrf({ cookie: true });
 let parseForm = bodyParser.urlencoded({extended:false});
 
 router.get('/authen', csrfProtection, authController.index);
+router.get('/logout', authController.logout);
 router.post('/login', parseForm, csrfProtection, authController.login);
 router.post('/regist', parseForm, csrfProtection, authController.regist);
 

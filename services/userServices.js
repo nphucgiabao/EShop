@@ -18,22 +18,25 @@ class userServices {
     }
 
     update(user) {
-        return new Promise((resolve, reject) => {
-            models.sequelize.query(
-                `UPDATE "Users" 
-                 SET email = '${user.email}', 
-                     password = '${user.password}',
-                     "firstName" = ${user.firstName},
-                     "lastName" = ${user.lastName},
-                     "mobile" = '${user.mobile}',
-                     "isAdmin" = '${user.isAdmin}',                     
-                     "updatedAt" = NOW()
-                 WHERE id = ${user.id}`,
-                {type: models.sequelize.QueryTypes.update}
-            )
-            .then((data) => { resolve({ success: true, obj: data}) })
-            .catch((err) => { console.log(err); reject({ success: false, error: err}) });
-        });
+        return models.User.update({...user}, {where:{id:user.id}});
+        // return new Promise((resolve, reject) => {
+        //     models.sequelize.query(
+        //         `UPDATE "Users" 
+        //          SET email = '${user.email}', 
+        //              "firstName" = ${user.firstName},
+        //              "lastName" = ${user.lastName},
+        //              "mobile" = '${user.mobile}',                   
+        //              "updatedAt" = NOW()
+        //          WHERE id = ${user.id}`,
+        //         {type: models.sequelize.QueryTypes.update}
+        //     )
+        //     .then((data) => { resolve({ success: true, obj: data}) })
+        //     .catch((err) => { console.log(err); reject({ success: false, error: err}) });
+        // });
+    }
+
+    updatePassword(id, password) {
+        return models.User.update({password},{where:{id}});
     }
 
     login(email, password) {

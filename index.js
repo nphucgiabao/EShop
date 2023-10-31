@@ -10,7 +10,6 @@ const server = http.createServer(app);
 const io = new Server(server);
 const passport = require('./middleware/passportMiddleware');
 const cookieParser = require('cookie-parser');
-const csrf = require('csurf');
 
 //cấu hình session
 app.use(session({

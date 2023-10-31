@@ -10,6 +10,7 @@ class authController {
     }
 
     login(req, res, next) {
+        let cart = req.session.cart;
         passport.authenticate('local-login', (err, user) => {
             if (err)
                 return next(err);
@@ -18,9 +19,19 @@ class authController {
             req.login(user, (err) => {
                 if (err)
                     return next(err);
+                req.session.cart = cart;
                 return res.redirect('/user/my-account');
             });
         })(req, res, next);
+    }
+
+    logout(req, res, next) {
+        let cart = req.session.cart;
+        req.logout((err) => {
+            if(err) return next(err);
+            req.session.cart = cart;    
+            res.redirect('/');
+        });
     }
 
     regist(req, res, next) {
