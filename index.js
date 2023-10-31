@@ -10,10 +10,17 @@ const server = http.createServer(app);
 const io = new Server(server);
 const passport = require('./middleware/passportMiddleware');
 const cookieParser = require('cookie-parser');
+const redisStore = require('connect-redis').default;
+const {createClient} = require('redis');
 
+const redisClient = createClient({
+    url: 'redis://red-cl0j33as1bgc73cavgj0:6379'
+});
+redisClient.connect().catch(console.error);
 //cấu hình session
 app.use(session({
     secret: 'S3cret', //tạo khóa cho mỗi session
+    store: new redisStore({client:redisClient}),
     resave: false,
     saveUninitialized: false,
     cookie: {
