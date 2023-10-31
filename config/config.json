@@ -20,10 +20,16 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "ptudwprojectdb",
+    "password": "1q97r6C43jclqxwBkrKq7aA1I7gcz0Fh",
+    "database": "ptudwprojectdb_mniv",
+    "host": "dpg-cl0hmd2s1bgc73bcgl60-a.oregon-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
